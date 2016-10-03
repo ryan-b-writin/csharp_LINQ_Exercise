@@ -38,21 +38,21 @@ namespace LINQ_Practice
         [TestMethod]
         public void GetOnlyCohortWithThreeJuniorInstructors()
         {
-            var ActualCohort = PracticeData/*FILL IN LINQ EXPRESSION*/;
+            var ActualCohort = PracticeData.Single(c => c.JuniorInstructors.ToList().Count() == 3);
             Assert.AreEqual(ActualCohort, CohortBuilder.Cohort3);
         }
 
         [TestMethod]
         public void GetOnlyCohortThatIsFullTimeAndPrimaryInstructorBirthdayInTheFuture()
         {
-            var ActualCohort = PracticeData/*FILL IN LINQ EXPRESSION*/;
+            var ActualCohort = PracticeData.Single(c => c.FullTime && (c.PrimaryInstructor.Birthday.Year > 2016));
             Assert.AreEqual(ActualCohort, CohortBuilder.Cohort2);
         }
 
         [TestMethod]
         public void GetOnlyCohortWithInstructorNamedZeldaOrNull()
         {
-            var ActualCohort = PracticeData/*FILL IN LINQ EXPRESSION*/;
+            var ActualCohort = PracticeData.SingleOrDefault(c => c.PrimaryInstructor.FirstName.ToLower() == "zelda");
             Assert.IsNull(ActualCohort);
         }
 
@@ -60,14 +60,14 @@ namespace LINQ_Practice
         [ExpectedException(typeof(System.InvalidOperationException))]
         public void GetOnlyCohortThatIsBothNotActiveAndNotFullTimeOrThrowException()
         {
-            var shouldThrowException = PracticeData/*FILL IN LINQ EXPRESSION*/;
+            var shouldThrowException = PracticeData.Single(c => c.Active && (c.FullTime == false));
         }
 
         [TestMethod]
         [ExpectedException(typeof(System.InvalidOperationException))]
         public void GetOnlyCohortWith2JuniorInstructorsOrThrowException()
         {
-            var shouldThrowException = PracticeData/*FILL IN LINQ EXPRESSION*/;
+            var shouldThrowException = PracticeData.Single(c => c.JuniorInstructors.ToList().Count() == 2);
         }
     }
 }
